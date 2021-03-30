@@ -86,10 +86,10 @@ void do_session(tcp::socket& socket,
     const std::shared_ptr<JsonArray>& arr,
     const std::shared_ptr<Suggestions>& suggestion) {
   for (;;) {
-    mutex->lock_shared();
+    mutex->lock();
     arr->ReadJson();
     suggestion->Update(arr->GetMemory());
-    mutex->unlock_shared();
+    mutex->unlock();
     std::this_thread::sleep_for(std::chrono::minutes(15));
   }
 }
